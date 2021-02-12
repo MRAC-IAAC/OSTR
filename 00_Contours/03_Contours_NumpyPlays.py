@@ -12,7 +12,7 @@ from numpy import savetxt
 # %matplotlib inline
 
 # Read image
-img = cv.imread('/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/SHEDIO/SHEDIO/00_Contours/sample_tests/test01.png')
+img = cv.imread('/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/00_Contours/sample_tests/test03.png')
 
 if img is None:
     print('Could not open or find the image:')
@@ -40,32 +40,31 @@ myArray = np.asarray(resizedImg)
 # print(myArray)
 print('\n')
 
-# Get color 255 or 0
-imgGetColor = resizedImg.copy()
-mat = imgGetColor[:,:]
-# print(mat)
-b,g,r = (imgGetColor[0, 0])
-print(r) # r, g, b values are the same because image is black and white
-
-# print(myArray)
-
 # Convert the image to grayscale
 grayArray = cv.cvtColor(myArray, cv.COLOR_BGR2GRAY)
 
-for p in grayArray: 
-    print(p)
-    print(type(grayArray))
+# Get color 255 or 0
+imgGetColor = myArray.copy()
+mat = imgGetColor[:,:]
+# print(mat)
+b,g,r = (imgGetColor[0, 0])
+print('The color of this pixel is: ', r) # r, g, b values are the same because image is black and white
+print('\n')
+print(type(myArray))
 
-# for x,y in resizedImg.shape[:,:]:
-#     b, g, r = resizedImg[int(x), int(y)]
-#     print ('The color of this pixel is: ', r) # r, g, b values are the same because image is black and white
+# for p in grayArray:
+#     print (p)
+
+# for p in grayArray: 
+#     print(p)
+#     print(type(grayArray))
 
 # Save to CSV file
 file_name = 'ArrayShape1'
-ArrayCSV = myArray.tolist()
+ArrayCSV = grayArray.tolist()
 with open(file_name+'.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
-        writer.writerows(ArrayCSV)
+        writer.writerows(grayArray)
 
 with open(file_name+'.csv', 'r') as f:
         reader = csv.reader(f)
