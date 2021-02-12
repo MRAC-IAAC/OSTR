@@ -50,6 +50,7 @@ def thresh_callback(val):
         ArrayCSV = list(reader)
 
     print(ArrayCSV)
+    
     arrayShape = []
     for row in examples:
         nwrow = []

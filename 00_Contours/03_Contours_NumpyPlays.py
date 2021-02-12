@@ -9,6 +9,8 @@ import os
 from PIL import Image
 from numpy import savetxt
 
+# %matplotlib inline
+
 # Read image
 img = cv.imread('/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/SHEDIO/SHEDIO/00_Contours/sample_tests/test01.png')
 
@@ -52,6 +54,7 @@ grayArray = cv.cvtColor(myArray, cv.COLOR_BGR2GRAY)
 
 for p in grayArray: 
     print(p)
+    print(type(grayArray))
 
 # for x,y in resizedImg.shape[:,:]:
 #     b, g, r = resizedImg[int(x), int(y)]
