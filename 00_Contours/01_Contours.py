@@ -49,15 +49,15 @@ def thresh_callback(val):
         reader = csv.reader(f)
         ArrayCSV = list(reader)
 
-    print(ArrayCSV)
+    # print(ArrayCSV)
     
-    arrayShape = []
-    for row in examples:
-        nwrow = []
-        for r in row:
-            nwrow.append(eval(r))
-        arrayShape.append(nwrow)
-    print(arrayShape)
+    # arrayShape = []
+    # for row in examples:
+    #     nwrow = []
+    #     for r in row:
+    #         nwrow.append(eval(r))
+    #     arrayShape.append(nwrow)
+    # print(arrayShape)
 
     # # img_path = '/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/SHEDIO/00_Contours/saved screens/test-03.png'
     # # img = cv.imread(img_path, 0) # image is grayscale. change 0 to 1 for RGB
@@ -71,7 +71,7 @@ parser.add_argument('--input', help='Path to input image.', default='YourImage.j
 args = parser.parse_args()
 
 # src = cv.imread(cv.samples.findFile(args.input))
-img = cv.imread('/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/SHEDIO/00_Contours/dancer.jpg')
+img = cv.imread('/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/00_Contours/dancer.jpg')
 if img is None:
     print('Could not open or find the image:', args.input)
     exit(0)
