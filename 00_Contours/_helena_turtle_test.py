@@ -1,6 +1,7 @@
 import turtle
 
 s = turtle.getscreen()
+print (s)
 t = turtle.Turtle()
 
 value1 = 200
@@ -21,5 +22,3 @@ t.forward(value2)
 
 t.clear()
 turtle.done()
-
-
