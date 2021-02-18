@@ -105,5 +105,4 @@ new_img = Image.fromarray(data, 'RGB')
 # img.show()
 
 
-
 cv.waitKey()
