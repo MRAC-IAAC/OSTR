@@ -71,7 +71,7 @@ parser.add_argument('--input', help='Path to input image.', default='YourImage.j
 args = parser.parse_args()
 
 # src = cv.imread(cv.samples.findFile(args.input))
-img = cv.imread('/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/00_Contours/dancer.jpg')
+img = cv.imread('/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/00_Contours/sample_tests/100x100pix_test2.png')
 if img is None:
     print('Could not open or find the image:', args.input)
     exit(0)

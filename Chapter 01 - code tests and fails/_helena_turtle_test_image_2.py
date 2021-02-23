@@ -12,13 +12,6 @@ from numpy import savetxt
 
 rng.seed(12345)
 
-def get_distance(current_position, next_point):
-    delta_y = next_point[1]-current_position[1]
-    delta_x = next_point[0]-current_position[0]
-
-    return math.sqrt((delta_x**2)+(delta_y**2))
-
-
 # current position at the start is the origin point and we have the convention 
 # that forward is aligned with X-axis
 current_position = [0,0]
@@ -26,10 +19,16 @@ desired_width = 300 # in mm - user input
 camera_image_width = 100 # Or get this from opencv camera input // piCamera is 1024 (x) x 768 (y) // current image is 100 x 100
 distance_to_pixel_ratio = desired_width / camera_image_width
 
+def get_distance(current_position, next_point):
+    delta_y = abs(next_point[1]-current_position[1])
+    delta_x = abs(next_point[0]-current_position[0])
+
+    return math.sqrt((delta_x**2)+(delta_y**2))
+
 def thresh_callback(val,t):
     threshold = val
     
-    # Detect edges using Canny
+    # Detect edges using Canny 
     canny_output = cv.Canny(img_gray, threshold, threshold * 2)
 
     # Find contours
@@ -42,27 +41,22 @@ def thresh_callback(val,t):
         color = (rng.randint(255,255), rng.randint(255,255), rng.randint(255,255))
         #color = (rng.randint(0,256), rng.randint(0,256), rng.randint(0,256))
         cv.drawContours(drawing, contours, i, color, 3, cv.LINE_8, hierarchy, 0)
-       
-        # Set the initial position of the Turtle
-        turtle.penup()
-        turtle.goto(-100,100)
 
         for i in range(len(contours)-1):
 
             first_point = contours[i] # [X0, Y0]
             next_point = contours[i+1]  # [X1, Y1]
-        print(contours)
+            
+            print(i)
 
-        current_position = [0,0]
+        for i in contours:
+            print(i)
 
-                
-        t.speed(1)
-        t.forward(200)
-        t.pen(pencolor="black", fillcolor="black", pensize=10, speed=1)
+        #print(contours)
 
     # Show in a window
     cv.imshow('Contours', drawing)
-    print(type(drawing))
+    #print(type(drawing))
 
     # Convert image to np array
     myArray = np.asarray(drawing)
@@ -81,22 +75,6 @@ def thresh_callback(val,t):
         reader = csv.reader(f)
         ArrayCSV = list(reader)
 
-    # print(ArrayCSV)
-    
-    # arrayShape = []
-    # for row in examples:
-    #     nwrow = []
-    #     for r in row:
-    #         nwrow.append(eval(r))
-    #     arrayShape.append(nwrow)
-    # print(arrayShape)
-
-    # # img_path = '/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/SHEDIO/00_Contours/saved screens/test-03.png'
-    # # img = cv.imread(img_path, 0) # image is grayscale. change 0 to 1 for RGB
-    # gcodeImage = drawing.shape / 255.0
-    # np.set_printoptions(threshold=sys.maxsize)
-    # print(type(gcodeImage))
-
 # Load source image
 parser = argparse.ArgumentParser(description='Code for Finding contours in your image tutorial.')
 parser.add_argument('--input', help='Path to input image.', default='YourImage.jpg')
@@ -112,27 +90,41 @@ if img is None:
 img_gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 img_gray = cv.blur(img_gray, (3,3))
 
-# Set Turtle screen = image size
-screen = turtle.Screen()
-screen.setup(width = 500, height = 500)
+# Load turtle screen
+screen = turtle.getscreen()
+
+# Set turtle
 t = turtle.Turtle()
+t.setposition(0,0)
+
+# Call function
 thresh_callback(100,t)
+
+# Unchanged turtle commands
+t.speed(1)
+t.pen(pencolor="black", fillcolor="black", pensize=5, speed=1)
+
+# Turtle commands (cheating) backwards L
+t.penup()
+t.goto(300,100)
+t.pendown()
+t.right(90)
+t.forward(400)
+t.right(90)
+t.forward(400)
+
 t.clear()
 turtle.done()
 
-# # Create Window
-# source_window = 'Source'
-# cv.namedWindow(source_window)
-# cv.imshow(source_window, img)
-# max_thresh = 255
-# thresh = 100 # initial threshold
-# cv.createTrackbar('Canny Thresh:', source_window, thresh, max_thresh, thresh_callback)
-# thresh_callback(thresh)
+# Turtle not cheating
 
-# # Window same size
-# w, h = 2700, 3277
-# data = np.zeros((h, w, 3), dtype=np.uint8)
-# data[200:350, 200:350] = [255, 255, 255]
-# new_img = Image.fromarray(data, 'RGB')
 
-#cv.waitKey()
+# Create Window
+source_window = 'Source'
+cv.namedWindow(source_window)
+cv.imshow(source_window, img)
+max_thresh = 255
+thresh = 100 # initial threshold
+
+
+cv.waitKey()
