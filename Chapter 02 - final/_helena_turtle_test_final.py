@@ -73,15 +73,19 @@ def calculate(list_X, list_Y):
         next_pt_Y = y + 1
         print (next_pt_Y)
 
-    # Calculate distance
-    delta_x = abs(next_pt_X[0]-current_pt[0])
-    delta_y = abs(next_pt_Y[1]-current_pt[1])
-    distances = math.sqrt((delta_x**2)+(delta_y**2))
-
+    # For robot to keep moving forward, angle needs to be == 0
+    # if angle == 0 from current to next point it needs to 
+    # add current distance to the next one and so on
+    
     # Calculate angle
     delta_x = abs(next_pt_X[0]-current_pt[0])
     delta_y = abs(next_pt_Y[1]-current_pt[1])
     angles = math.tan(delta_y/delta_x)
+
+    # Calculate distance
+    delta_x = abs(next_pt_X[0]-current_pt[0])
+    delta_y = abs(next_pt_Y[1]-current_pt[1])
+    distances = math.sqrt((delta_x**2)+(delta_y**2))
 
     return distances, angles
 
