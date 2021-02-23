@@ -20,12 +20,6 @@ def find_angle(current_position, target_point, point_after_target):
     delta_y = target_point[1]-current_position[1]
     delta_x = target_point[0]-current_position[0]
 
-    # For robot to keep moving forward, angle needs to be == 0
-    # if angle == 0 from current to next point it needs to 
-    # add current distance to the next one and so on
-    
-
-
     return math.tan(delta_y/delta_x)
 
 
