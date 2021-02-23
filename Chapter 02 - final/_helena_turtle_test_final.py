@@ -66,11 +66,11 @@ def calculate(list_X, list_Y):
     current_pt = [0,0]
 
     for x in range(len(list_X)-1):
-        next_pt_X = x + 1
+        next_pt_X = list_X[x + 1]
         print (next_pt_X)
 
     for y in range(len(list_Y)-1):
-        next_pt_Y = y + 1
+        next_pt_Y = list_Y[y + 1]
         print (next_pt_Y)
 
     # For robot to keep moving forward, angle needs to be == 0
