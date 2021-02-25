@@ -86,56 +86,83 @@ def contours(img_binary, i):
 def calculate(list_pts_x, list_pts_y):
 
     current_pt = [0,0]
-    pixel_ratio = 50 # in mm
+    pixel_ratio = 5 # in mm
 
-    for x in range(len(list_pts_x)-1):
-        next_pt_X = list_pts_x[x + 1]
-        # point_after_X = list_pts_x[x + 2]
-        print ('i am next point x : ', next_pt_X) # print(point_after_X)
+    list_pts_x_new = []
+    list_pts_y_new = []
 
-    for x_curr in range(len(list_pts_x)): ### new 
-        curr_pt_X = list_pts_x[x_curr]
-        print('i am current point x : ', curr_pt_X)
+    for i in list_pts_x[0]:
+        list_pts_x_new.append(i[0])
+    print(list_pts_x_new)
 
-    for y in range(len(list_pts_y)-1):
-        next_pt_Y = list_pts_y[y + 1]
-        # point_after_Y = list_pts_y[y + 2]
-        print ('i am next point y : ', next_pt_Y) # print(point_after_Y)
+    for i in list_pts_y[0]:
+        list_pts_y_new.append(i[0])
 
-    for y_curr in range(len(list_pts_y)): ### new 
-        curr_pt_Y = list_pts_y[y_curr]
-        print ('i am current point y : ', curr_pt_Y)
+    # For points in X
+    list_pts_x_new_next = list_pts_x_new.copy()
+    list_pts_x_new_next.pop(0)
+    list_pts_x_new_next.append(0)
 
-    print('foo is', next_pt_X)
+    print('New points in X: ', list_pts_x_new_next)
 
-    # Calculate distance
-    d_delta_x = ((next_pt_X)-(curr_pt_X))
-    d_delta_y = abs(next_pt_Y-curr_pt_Y)
+    # For points in Y
+    list_pts_y_new_next = list_pts_y_new.copy()
+    list_pts_y_new_next.pop(0)
+    list_pts_y_new_next.append(0)
+    
+    print('New points in Y: ', list_pts_y_new_next)
+    
+    # Calculate distances
 
-    print('distance values are: ', '\n', d_delta_x, d_delta_y)
+    distance_X = []
+    zip_object = zip(list_pts_x_new, list_pts_x_new_next)
+    for list_pts_x_new_i, list_pts_x_new_next_i in zip_object:
+        distance_X.append(abs(list_pts_x_new_i-list_pts_x_new_next_i))
+    print('Distance in X: ', distance_X)
 
-    # delta_next_x = abs(point_after_X[0]-current_pt[0])
-    # delta_next_y = abs(point_after_Y[0]-current_pt[0])
+    distance_Y = []
+    zip_object = zip(list_pts_y_new, list_pts_y_new_next)
+    for list_pts_y_new_i, list_pts_y_new_next_i in zip_object:
+        distance_Y.append(abs(list_pts_y_new_i-list_pts_y_new_next_i))
+    print('Distance in X: ', distance_Y)
 
-    distance = (math.sqrt((d_delta_x**2)+(d_delta_y**2)))/pixel_ratio
+    distance_X_P2 = []
+    distance_Y_P2 = []
+    zip_object = zip(distance_X, distance_Y)
+    for distance_X_i, distance_Y_i in zip_object:
+        distance_X_P2.append(distance_X_i**2)
+        distance_Y_P2.append(distance_Y_i**2)
+    print('Distances squared are: ', distance_X_P2, distance_Y_P2)
 
-    # Calculate angle
-    a_delta_x = abs(next_pt_X-curr_pt_X)
-    a_delta_y = abs(next_pt_Y-curr_pt_Y)
+    distance_root = []
+    zip_object = zip(distance_X_P2, distance_Y_P2)
+    for distance_X_P2_i, distance_Y_P2_i in zip_object:
+        distance_root.append((distance_X_P2_i)+(distance_Y_P2_i))
+    print('Distance squared added are: ', distance_root)
 
-    # For robot to keep moving forward, angle needs to be == 0
-    # Simplify contours to have less points in 'straight line'
+    distance_d = []
+    for d in distance_root:
+        distance_d.append(math.sqrt(d))
+    print('Distances to move F in image are : ', distance_d)
 
-    # delta_next_x = abs(point_after_X[0]-current_pt[0])
-    # delta_next_y = abs(point_after_Y[0]-current_pt[0])
+    distances = []
+    for d_r in distance_d:
+        distances.append((d_r/pixel_ratio))
+    print('Real distances to move F are : ', distances)
 
-    angle = math.tan(a_delta_y/a_delta_x)
+    # Calculate angles
+    distance_a = []
+    zip_object = zip(distance_X, distance_Y)
+    for distance_X_a_i, distance_Y_a_i in zip_object:
+        distance_a.append(abs(distance_X_a_i / distance_Y_a_i))
+    # print('Distances for tangeant are: ', distance_a)
 
-        # if angle == 0:
-        #     next_angle = math.tan(delta_next_y/delta_next_x)
-        #     new_distance = (math.sqrt((delta_next_x**2)+(delta_next_y**2)))*pixel_ratio
-
-    return distance, angle
+    angles_tan = []
+    for tan_a in distance_a:
+        angles_tan.append(abs(math.tan(tan_a)))
+    print('Angles for rotations in R are: ', angles_tan)
+    
+    return distances, angles_tan
 
 def get_instructions(distance, angle): 
 
@@ -197,17 +224,12 @@ img = load_image(img_path)
 img_binary = process_image(img)
 
 # Contours
-list_contours, list_pts_x, list_pts_y = contours(img_binary,0)
+list_contours, list_pts_x_new, list_pts_y_new = contours(img_binary,0)
 
-list_pts_x_new = []
-list_pts_y_new = []
-
-for i in list_pts_x[0]:
-    list_pts_x_new.append(i[0])
-
-for i in list_pts_y[0]:
-    list_pts_y_new.append(i[0])
+print('ok, voyons: ', list_pts_x_new, list_pts_y_new)
 
 # Run Calculations
 print('\n', 'je suis la','\n')
 calculate(list_pts_x_new, list_pts_y_new)
+
+
