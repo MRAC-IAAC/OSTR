@@ -93,10 +93,11 @@ def calculate(list_pts_x, list_pts_y):
 
     for i in list_pts_x[0]:
         list_pts_x_new.append(i[0])
-    print(list_pts_x_new)
+    print('Starting list for X is: ', list_pts_x_new)
 
     for i in list_pts_y[0]:
         list_pts_y_new.append(i[0])
+    print('Starting list for Y is: ', list_pts_y_new)
 
     # For points in X
     list_pts_x_new_next = list_pts_x_new.copy()
@@ -161,25 +162,28 @@ def calculate(list_pts_x, list_pts_y):
     for tan_a in distance_a:
         angles_tan.append(abs(math.tan(tan_a)))
     print('Angles for rotations in R are: ', angles_tan)
+
+    # Round values for distances
+    distances_round = [round(num) for num in distances]
+    print('Rounded distances are: ', distances_round)
+
+    # Round values for angle
+    angles_round_tan = [round(num) for num in angles_tan]
+    print('Rounded angles are: ', angles_round_tan)
     
-    return distances, angles_tan
+    return distances_round, angles_round_tan
 
-def get_instructions(distance, angle): 
+def get_instructions(distances_round, angle_round_tan): 
 
-    # Decide on common language with robot (operated by Juan)
+    # Decide on common language with robot (check with Jeo)
     # F = Forward (takes distance in mm)
     # R = Turn right (takes angle in degrees)
     # U = PenUp
     # D = PenDown
 
-    # When angle != 0
-    # Robot needs to turn right (R)
+    instructions = []
 
-    for a, d in angle, distance:
-        if a != 0:
-            print ('R', a, '\n') # check 360 R / L (?)
-        elif a > 0:
-            print ('F', d, '\n')
+    # :)good night 
 
     return instructions
 
@@ -226,10 +230,10 @@ img_binary = process_image(img)
 # Contours
 list_contours, list_pts_x_new, list_pts_y_new = contours(img_binary,0)
 
-print('ok, voyons: ', list_pts_x_new, list_pts_y_new)
+# Calculations
+distances_round, angle_round_tan = calculate(list_pts_x_new, list_pts_y_new)
 
-# Run Calculations
-print('\n', 'je suis la','\n')
-calculate(list_pts_x_new, list_pts_y_new)
+# Get Instructions
+# get_instructions(distances_round, angle_round_tan)
 
-
+print('\n', 'Tout va bien', '\n')
