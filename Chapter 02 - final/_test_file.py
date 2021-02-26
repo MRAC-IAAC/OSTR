@@ -20,7 +20,7 @@ list_X = [366, 370, 387, 400]
 
 lst = [10, 50, 75, 83, 98, 84, 32] 
  
-res = list(map(lambda x:x, lst[x+1]))
+res = list(map(lambda x:x, lst))
  
 print(res) 
 
@@ -49,3 +49,10 @@ print('operation 1 is: ', a)
 new_list_x.append(operation_1)
 
 print(new_list_x)
+
+ints = [1,2,3]
+string_ints = ['F' + str(+int) for int in ints]
+
+str_of_ints = ",".join(string_ints)
+
+print(str_of_ints)

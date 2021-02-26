@@ -15,7 +15,7 @@ rng.seed(12345)
 
 # Define functions ___________________________________________________
 
-img_path = ('/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/Chapter 02 - final/sample_tests/400x400pix_test2.png')
+img_path = ('/Users/helenahomsi/Desktop/IAAC/07 TERM 02/HARDWARE II/SHEDIO/Chapter 02 - final/sample_tests/400x400pix_test3.png')
 
 def load_image(img_path):
     img = cv.imread(img_path)
@@ -181,14 +181,41 @@ def get_instructions(distances_round, angle_round_tan):
     # U = PenUp
     # D = PenDown
 
-    instructions = []
+    # Get list of strings for Distances
+    str_of_distances1 = map(str, distances_round)  
+    str_of_distances2 = ["F" + dist for dist in str_of_distances1]
+    # print('String list of Distances is: ', str_of_distances2)
+    
+    string_distances_round = [str('F' +int) for int in str_of_distances2]
+    str_of_distances = "\n".join(str_of_distances2)
+    # print('Distance instructions are: ', str_of_distances)
 
-    # :)good night 
+    # Get list of strings for Angles
+    str_of_angles1 = map(str, angle_round_tan)  
+    str_of_angles2 = ["R" + a for a in str_of_angles1]
+    # print('String list of Angles is: ', str_of_angles2)
+
+    string_angle_round_tan = [str('R' +int) for int in str_of_angles2]
+    str_of_angles = "\n".join(str_of_angles2)
+    # print('Angle instructions are: ', str_of_angles)
+
+    combined = []
+    for i in range(len(str_of_angles2)):
+        combined.append(str_of_angles2[i])
+        combined.append(str_of_distances2[i])
+    print(combined)
+
+    instructions = []    
+    first_intructions = [str(int) for int in combined]
+    instructions = "\n".join(combined)
+    print('Final instructions are: ', instructions)
 
     return instructions
 
-def wait_for_instruction():
-    #Listen to the robot until it's done
+def send_to_robot():
+
+    # ?
+    # Listen to the robot until it's done
 
     done = ser.read()
     if done == "DONE":
@@ -234,6 +261,6 @@ list_contours, list_pts_x_new, list_pts_y_new = contours(img_binary,0)
 distances_round, angle_round_tan = calculate(list_pts_x_new, list_pts_y_new)
 
 # Get Instructions
-# get_instructions(distances_round, angle_round_tan)
+get_instructions(distances_round, angle_round_tan)
 
-print('\n', 'Tout va bien', '\n')
+print('\n', 'Ma chérie tout va bien', '\n')
