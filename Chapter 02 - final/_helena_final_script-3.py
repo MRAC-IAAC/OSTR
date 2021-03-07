@@ -43,13 +43,18 @@ def contours(img_binary, i):
     # Draw contours
     drawing = np.zeros((canny_output.shape[0], canny_output.shape[1], 3), dtype=np.uint8)
 
+    print('Contours are in the form of a: ', type(contours))
+    print('\n')
+
     # Simplify contours
+    simp_contours = []
     for c in contours:
-        simp_contours = []
         epsilon = 0.01*cv.arcLength(c,True)
-        appprox_cnt = cv.approxPolyDP(c,epsilon,True)
-        simp_contours.append(appprox_cnt)
-        print('simplified contours are: ', simp_contours)
+        approx_cnt = cv.approxPolyDP(c,epsilon,True)
+        simp_contours.append(approx_cnt)
+    print('Simplified contours are: ', simp_contours)
+    print(type(simp_contours))
+    print('\n')
 
     for i in range(len(simp_contours)):
         color = (rng.randint(255,255), rng.randint(255,255), rng.randint(255,255))
@@ -58,30 +63,35 @@ def contours(img_binary, i):
     cv.imshow('Image', img)
     cv.imshow('Contours', drawing)
     cv.waitKey()
-
-    list_contours = []
-    list_contours.append(simp_contours)
-    print(type(simp_contours[0]))
-    # print('list of contours', list_contours)
-
-    list_contours = np.array([simp_contours])
-    print(type(list_contours))
-    # print(list_contours[0,0,0,0,0]) # get x value of first set of coordinates
-    # print(list_contours[0,0,0,0,1]) # get y value of first set of coordinates
     
-    # X value of all sets of coordinates
-    list_pts_x = []
-    list_pts_x.append(list_contours[0,0,:,:,0])
-    print('the X coordinates are: ', '\n', list_pts_x)
-
+    list_contours = []
+    for l in simp_contours:
+        sublists = l.tolist()
+        list_contours.append(sublists)
+    print('List of contours is: ', list_contours)
+    print('Type of contours is: ', type(list_contours))
+    print('Length of contours is: ', len(list_contours))
     print('\n')
 
-    # Y value of all sets of coordinates
-    list_pts_y = []
-    list_pts_y.append(list_contours[0,0,:,:,1])
-    print('the Y coordinates are: ', '\n', list_pts_y)
+    # List of points in X
+    points_in_X = []
+    for i in list_contours:
+        for a in i:
+            points_in_X.append(a[0][0])
+    
+    print('Points in X are: ', points_in_X)
+    print('\n')
 
-    return list_contours, list_pts_x, list_pts_y
+    # List of points in Y
+    points_in_Y = []
+    for i in list_contours:
+        for a in i:
+            points_in_Y.append(a[0][1])
+    
+    print('Points in Y are: ', points_in_Y)
+    print('\n')
+
+    return list_contours, points_in_X, points_in_Y
 
 def calculate(list_pts_x, list_pts_y):
 
@@ -91,13 +101,15 @@ def calculate(list_pts_x, list_pts_y):
     list_pts_x_new = []
     list_pts_y_new = []
 
-    for i in list_pts_x[0]:
-        list_pts_x_new.append(i[0])
+    for i in list_pts_x:
+        list_pts_x_new.append(i)
     print('Starting list for X is: ', list_pts_x_new)
+    print('\n')
 
-    for i in list_pts_y[0]:
-        list_pts_y_new.append(i[0])
+    for i in list_pts_y:
+        list_pts_y_new.append(i)
     print('Starting list for Y is: ', list_pts_y_new)
+    print('\n')
 
     # For points in X
     list_pts_x_new_next = list_pts_x_new.copy()
@@ -105,6 +117,7 @@ def calculate(list_pts_x, list_pts_y):
     list_pts_x_new_next.append(0)
 
     print('New points in X: ', list_pts_x_new_next)
+    print('\n')
 
     # For points in Y
     list_pts_y_new_next = list_pts_y_new.copy()
@@ -112,21 +125,26 @@ def calculate(list_pts_x, list_pts_y):
     list_pts_y_new_next.append(0)
     
     print('New points in Y: ', list_pts_y_new_next)
-    
-    # Calculate distances
+    print('\n')
 
+    # Calculate distances
+        # Distances in X
     distance_X = []
     zip_object = zip(list_pts_x_new, list_pts_x_new_next)
     for list_pts_x_new_i, list_pts_x_new_next_i in zip_object:
         distance_X.append(abs(list_pts_x_new_i-list_pts_x_new_next_i))
     print('Distance in X: ', distance_X)
+    print('\n')
 
+       # Distances in Y
     distance_Y = []
     zip_object = zip(list_pts_y_new, list_pts_y_new_next)
     for list_pts_y_new_i, list_pts_y_new_next_i in zip_object:
         distance_Y.append(abs(list_pts_y_new_i-list_pts_y_new_next_i))
     print('Distance in X: ', distance_Y)
+    print('\n')
 
+       # Distances squared
     distance_X_P2 = []
     distance_Y_P2 = []
     zip_object = zip(distance_X, distance_Y)
@@ -134,43 +152,53 @@ def calculate(list_pts_x, list_pts_y):
         distance_X_P2.append(distance_X_i**2)
         distance_Y_P2.append(distance_Y_i**2)
     print('Distances squared are: ', distance_X_P2, distance_Y_P2)
+    print('\n') 
 
+       # Distances square rooted
     distance_root = []
     zip_object = zip(distance_X_P2, distance_Y_P2)
     for distance_X_P2_i, distance_Y_P2_i in zip_object:
         distance_root.append((distance_X_P2_i)+(distance_Y_P2_i))
     print('Distance squared added are: ', distance_root)
+    print('\n')
 
+       # Distances to move Forward
     distance_d = []
     for d in distance_root:
         distance_d.append(math.sqrt(d))
     print('Distances to move F in image are : ', distance_d)
+    print('\n')
 
+       # Scaled distances to move Forward
     distances = []
     for d_r in distance_d:
         distances.append((d_r/pixel_ratio))
     print('Real distances to move F are : ', distances)
+    print('\n')
 
     # Calculate angles
     distance_a = []
     zip_object = zip(distance_X, distance_Y)
     for distance_X_a_i, distance_Y_a_i in zip_object:
         distance_a.append(abs(distance_X_a_i / distance_Y_a_i))
-    # print('Distances for tangeant are: ', distance_a)
 
+       # Angles to Rotate
     angles_tan = []
     for tan_a in distance_a:
         angles_tan.append(abs(math.tan(tan_a)))
     print('Angles for rotations in R are: ', angles_tan)
+    print('\n')
 
-    # Round values for distances
+        # Rounded values for distances
     distances_round = [round(num) for num in distances]
     print('Rounded distances are: ', distances_round)
+    print('\n')
 
-    # Round values for angle
+        # Rounded values for angle
     angles_round_tan = [round(num) for num in angles_tan]
     print('Rounded angles are: ', angles_round_tan)
-    
+    print('\n')
+
     return distances_round, angles_round_tan
 
 def get_instructions(distances_round, angle_round_tan): 
@@ -204,11 +232,13 @@ def get_instructions(distances_round, angle_round_tan):
         combined.append(str_of_angles2[i])
         combined.append(str_of_distances2[i])
     print('Combined: ', combined)
+    print('\n')
 
     instructions = []    
     first_intructions = [str(int) for int in combined]
     instructions = "\n".join(combined)
     print('Final instructions are: ', instructions)
+    print('\n')
 
     return instructions
 
