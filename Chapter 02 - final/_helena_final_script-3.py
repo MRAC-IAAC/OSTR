@@ -76,17 +76,20 @@ def contours(img_binary, i):
     # List of points in X
     points_in_X = []
     for i in list_contours:
+        coordinates_X =[]
         for a in i:
-            points_in_X.append(a[0][0])
-    
+            coordinates_X.append(a[0][0])
+        points_in_X.append(coordinates_X)
     print('Points in X are: ', points_in_X)
     print('\n')
 
     # List of points in Y
     points_in_Y = []
     for i in list_contours:
+        coordinates_Y =[]
         for a in i:
-            points_in_Y.append(a[0][1])
+            coordinates_Y.append(a[0][1])
+        points_in_Y.append(coordinates_Y)
     
     print('Points in Y are: ', points_in_Y)
     print('\n')
@@ -113,16 +116,18 @@ def calculate(list_pts_x, list_pts_y):
 
     # For points in X
     list_pts_x_new_next = list_pts_x_new.copy()
-    list_pts_x_new_next.pop(0)
-    list_pts_x_new_next.append(0)
-
+    for i in list_pts_x_new_next:
+        i.pop(0)
+        i.append(100)
+    
     print('New points in X: ', list_pts_x_new_next)
     print('\n')
 
     # For points in Y
     list_pts_y_new_next = list_pts_y_new.copy()
-    list_pts_y_new_next.pop(0)
-    list_pts_y_new_next.append(0)
+    for i in list_pts_y_new_next:
+        i.pop(0)
+        i.append(50)
     
     print('New points in Y: ', list_pts_y_new_next)
     print('\n')
@@ -132,7 +137,8 @@ def calculate(list_pts_x, list_pts_y):
     distance_X = []
     zip_object = zip(list_pts_x_new, list_pts_x_new_next)
     for list_pts_x_new_i, list_pts_x_new_next_i in zip_object:
-        distance_X.append(abs(list_pts_x_new_i-list_pts_x_new_next_i))
+        for a, b in list_pts_x_new_i, list_pts_x_new_next_i:
+            distance_X.append(abs((list_pts_x_new_i) - (list_pts_x_new_next_i)))
     print('Distance in X: ', distance_X)
     print('\n')
 
@@ -140,7 +146,8 @@ def calculate(list_pts_x, list_pts_y):
     distance_Y = []
     zip_object = zip(list_pts_y_new, list_pts_y_new_next)
     for list_pts_y_new_i, list_pts_y_new_next_i in zip_object:
-        distance_Y.append(abs(list_pts_y_new_i-list_pts_y_new_next_i))
+        for a, b in list_pts_y_new_i, list_pts_y_new_next_i:
+            distance_Y.append(abs(list_pts_y_new_i-list_pts_y_new_next_i))
     print('Distance in X: ', distance_Y)
     print('\n')
 
