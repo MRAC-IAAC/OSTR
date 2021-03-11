@@ -98,8 +98,14 @@ def contours(img_binary, i):
 
 def calculate(points_in_X, points_in_Y):
 
-    current_pt = [0,0]
-    pixel_ratio = 2 # in mm
+    # 100 pixel = 26.4 mm
+
+    # piCam_X = 1024 # pixel
+    # piCam_Y = 768 # pixel
+    # whiteCanvas_X = 650 # mm
+    # whiteCanvas_Y = 500 # mm
+
+    pixel_ratio = 2
 
     X_next_coordinates = points_in_X.copy()
     Y_next_coordinates = points_in_Y.copy()
@@ -227,26 +233,30 @@ def calculate(points_in_X, points_in_Y):
     # print('\n')
 
     # Calculate angles
-    distance_a = []
-    for a in range(len(distance_X)):
-        angle_value = []
-        for b in range(len(distance_X[a])):
-            try:
-                angle = abs(distance_Y[a][b] / distance_X[a][b])
-            except ZeroDivisionError:
-                angle = abs(distance_Y[a][b] / distance_X_Error[a][b])
-            pass
-            angle_value.append(angle)
-        distance_a.append(angle_value)
-
-       # Angles to Rotate
     angles_tan = []
-    for a in range(len(distance_a)):
-        tan_angle = []
-        for b in range(len(distance_a[a])):
-            value = abs(math.tan(distance_a[a][b]))
-            tan_angle.append(value)
-        angles_tan.append(tan_angle)
+    for a in range(len(points_in_X)):
+        angle_value = []
+        for b in range(len(points_in_X[a])):
+            angle_op = abs(points_in_X[a][b] / points_in_Y[a][b])
+            angle = abs(math.tan(angle_op))
+            angle_ = angle * 1
+            if 0 > angle_ < 180:
+                angle_ = angle_
+            elif 180 >= angle_ < 360:
+                angle_ = abs(360 - angle_)
+            elif 360 > angle_ < 720:
+                angle_ = abs(angle_ - 360)
+            elif 720 > angle_ < 1080:
+                angle_ = abs(angle_ - 720)
+            elif 1080 > angle_ < 1440:
+                angle_ = abs(angle_ - 1080)
+            elif 1440 > angle_ < 10000:
+                angle_ = abs(angle_ - 1440)
+            elif angle_ > 10000:
+                angle_ = abs(angle_ / 100)
+            angle_ = angle * 10
+            angle_value.append(angle_)
+        angles_tan.append(angle_value)
     # print('Angles for rotations in R are: ', angles_tan)
     # print('\n')
 
@@ -281,8 +291,8 @@ def calculate(points_in_X, points_in_Y):
         empty.append(operation4)
         in_betweens_d.append(empty)
     in_betweens_d.append(extra)
-    print('In betweens D are: ', in_betweens_d)
-    print('\n')
+    # print('In betweens D are: ', in_betweens_d)
+    # print('\n')
 
     full_list_D = []
     for d in range(len(rounded_distances)):
@@ -298,12 +308,12 @@ def calculate(points_in_X, points_in_Y):
     Foperation3 = Foperation2 / pixel_ratio
     Foperation4 = round(Foperation3)
     first_d.append(Foperation4)
-    print('First Value to travel is: ', first_d)
-    print('\n')
+    # print('First Value to travel is: ', first_d)
+    # print('\n')
 
     full_list_D.insert(0, first_d)
-    print('Full list of Distances is: ', full_list_D)
-    print('\n')
+    # print('Full list of Distances is: ', full_list_D)
+    # print('\n')
 
     # Add in between angles to rotate with Pen UP
     in_betweens_a = []
@@ -319,15 +329,15 @@ def calculate(points_in_X, points_in_Y):
         empty.append(operation3)
         in_betweens_a.append(empty)
     in_betweens_a.append(extra)
-    print('In betweens A are: ', in_betweens_a)
-    print('\n')
+    # print('In betweens A are: ', in_betweens_a)
+    # print('\n')
 
     full_list_A = []
     for a in range(len(rounded_angles)):
         full_list_A.append(rounded_angles[a])
         full_list_A.append(in_betweens_a[a])
-    print('Full List of Angles is: ', full_list_A)
-    print('\n')
+    # print('Full List of Angles is: ', full_list_A)
+    # print('\n')
 
     # Add FIRST angle to rotate with Pen UP
     first_a = []
@@ -337,12 +347,12 @@ def calculate(points_in_X, points_in_Y):
     operation2_ = math.tan(operation1_)
     operation3_ = round(operation2_)
     first_a.append(operation3_)
-    print('First Value to rotate is: ', first_a)
-    print('\n')
+    # print('First Value to rotate is: ', first_a)
+    # print('\n')
 
     full_list_A.insert(0, first_a)
-    print('Full list of Angles is: ', full_list_A)
-    print('\n')
+    # print('Full list of Angles is: ', full_list_A)
+    # print('\n')
 
     return full_list_D, full_list_A
 
@@ -363,8 +373,8 @@ def get_instructions(rounded_distances, rounded_angles):
             str_of_ints = 'F' + "".join(i)
             strgs.append(str_of_ints)
         strings_d.append(strgs)
-    print('Distances strings are: ', strings_d)
-    print('\n')
+    # print('Distances strings are: ', strings_d)
+    # print('\n')
 
     # Get list of strings for Angles
     strings_a = []
@@ -375,8 +385,8 @@ def get_instructions(rounded_distances, rounded_angles):
             str_of_ints = 'R' + "".join(i)
             strgs.append(str_of_ints)
         strings_a.append(strgs)
-    print('Angles strings are: ', strings_a)
-    print('\n')
+    # print('Angles strings are: ', strings_a)
+    # print('\n')
 
     combined = []
     for i in range(len(strings_a)):
