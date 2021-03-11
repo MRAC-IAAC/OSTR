@@ -76,20 +76,16 @@ def contours(img_binary, i):
     # List of points in X
     points_in_X = []
     for i in list_contours:
-        coordinates_X =[]
         for a in i:
-            coordinates_X.append(a[0][0])
-        points_in_X.append(coordinates_X)
+            points_in_X.append(a[0][0])
     print('Points in X are: ', points_in_X)
     print('\n')
 
     # List of points in Y
     points_in_Y = []
     for i in list_contours:
-        coordinates_Y =[]
         for a in i:
-            coordinates_Y.append(a[0][1])
-        points_in_Y.append(coordinates_Y)
+            points_in_Y.append(a[0][1])
     
     print('Points in Y are: ', points_in_Y)
     print('\n')
@@ -116,18 +112,20 @@ def calculate(list_pts_x, list_pts_y):
 
     # For points in X
     list_pts_x_new_next = list_pts_x_new.copy()
-    for i in list_pts_x_new_next:
-        i.pop(0)
-        i.append(100)
+    list_pts_x_new_next.pop(0)
+    valX = list_pts_x_new_next[-1]
+    valX100 = valX + 100
+    list_pts_x_new_next.append(valX100)
     
     print('New points in X: ', list_pts_x_new_next)
     print('\n')
 
     # For points in Y
     list_pts_y_new_next = list_pts_y_new.copy()
-    for i in list_pts_y_new_next:
-        i.pop(0)
-        i.append(50)
+    list_pts_y_new_next.pop(0)
+    valY = list_pts_y_new_next[-1]
+    valY100 = valY + 100
+    list_pts_y_new_next.append(valY100)
     
     print('New points in Y: ', list_pts_y_new_next)
     print('\n')
@@ -137,8 +135,8 @@ def calculate(list_pts_x, list_pts_y):
     distance_X = []
     zip_object = zip(list_pts_x_new, list_pts_x_new_next)
     for list_pts_x_new_i, list_pts_x_new_next_i in zip_object:
-        for a, b in list_pts_x_new_i, list_pts_x_new_next_i:
-            distance_X.append(abs((list_pts_x_new_i) - (list_pts_x_new_next_i)))
+        print('i am here: ', list_pts_x_new_i, list_pts_x_new_next_i)
+        distance_X.append(abs((list_pts_x_new_i) - (list_pts_x_new_next_i)))
     print('Distance in X: ', distance_X)
     print('\n')
 
@@ -146,7 +144,6 @@ def calculate(list_pts_x, list_pts_y):
     distance_Y = []
     zip_object = zip(list_pts_y_new, list_pts_y_new_next)
     for list_pts_y_new_i, list_pts_y_new_next_i in zip_object:
-        for a, b in list_pts_y_new_i, list_pts_y_new_next_i:
             distance_Y.append(abs(list_pts_y_new_i-list_pts_y_new_next_i))
     print('Distance in X: ', distance_Y)
     print('\n')
@@ -246,6 +243,17 @@ def get_instructions(distances_round, angle_round_tan):
     instructions = "\n".join(combined)
     print('Final instructions are: ', instructions)
     print('\n')
+
+    # Save to CSV file
+    file_name = 'Instructions_test1'
+
+    with open(file_name+'.csv', 'w') as csvfile:
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        writer.writerows(instructions)
+
+    with open(file_name+'.csv', 'r') as f:
+        reader = csv.reader(f)
+        instructions = list(reader)
 
     return instructions
 
