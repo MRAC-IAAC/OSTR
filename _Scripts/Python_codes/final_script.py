@@ -5,8 +5,6 @@ import numpy as np
 import argparse
 import random as rng
 import math
-import matplotlib.pyplot as plt
-import turtle
 
 from PIL import Image
 from numpy import savetxt
@@ -15,7 +13,7 @@ rng.seed(12345)
 
 # Define functions ___________________________________________________
 
-img_path = ('_test_images/image-01.jpg')
+img_path = ('_test_images/sample_tests/test02.png')
 
 def load_image(img_path):
     img = cv.imread(img_path)
@@ -105,7 +103,7 @@ def calculate(points_in_X, points_in_Y):
     # whiteCanvas_X = 650 # mm
     # whiteCanvas_Y = 500 # mm
 
-    pixel_ratio = 2
+    pixel_ratio = 10
 
     X_next_coordinates = points_in_X.copy()
     Y_next_coordinates = points_in_Y.copy()
