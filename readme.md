@@ -53,7 +53,9 @@ An updated model with the latest parts can be found in the _Hardware folder [her
 
 First things first, we need to translate string commands into wheel movements (controlled by the motors) to be able to establish a clear language with the mini bot. For that, we also need to calibrate it properly.
 
-Follow the tutorial through this [link](https://www.instructables.com/Arduino-Drawing-Robot/)
+Follow the tutorial through this [link](https://www.instructables.com/Arduino-Drawing-Robot/).
+
+All necessary arduino codes can be found [here](https://github.com/MRAC-IAAC/SHEDIO/tree/master/_Scripts/Arduino_codes) with comments. 
 
 -------------------------------
 
@@ -79,7 +81,7 @@ For beginners in Python, the [official website](https://www.python.org/about/get
  **Socratica's** fun youtube [tutorial](https://www.youtube.com/playlist?list=PLi01XoE8jYohWFPpC17Z-wWhPOSuh8Er-) also provides a step by step guide into the basics of Python.   
  This code uses Python 3.9.
 
- First start by creating a custom environment for this project, to eventually install necessary libraries. Follow the tutorial [here](https://docs.python.org/3/library/venv.html).
+ First start by creating a custom environment for this project, to eventually install necessary libraries. Follow the tutorial on how to do so [here](https://docs.python.org/3/library/venv.html).
 
 For this code, available in the _Scripts folder of the repository [here](https://github.com/MRAC-IAAC/SHEDIO/blob/master/_Scripts/Python_codes/final_script.py), you will need to install the following libraries:  
 - [OpenCV](https://docs.opencv.org/master/df/d65/tutorial_table_of_content_introduction.html) library  
