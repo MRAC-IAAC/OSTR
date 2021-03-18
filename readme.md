@@ -27,7 +27,8 @@ _noun_
 ## **00. HARDWARE**
 
 ![alt text](_Diagrams/01-DB-firstPrototype.jpg)
-First Iteration Parts:  
+
+**First Iteration Parts:**  
 (1) Arduino Uno  
 (2) 28byj-48 Stepper Motor  
 (3) Mini Servo Motor  
@@ -89,15 +90,16 @@ A basic eplanation of how the logic of the code works can be found in this [blog
 
 ## **04. FABRICATION**
 
-The necessary parts for this bot were 3D printed. Find the catalogue of parts [here]().  
-You will need: 
-- 1 base 
-- 2 wheels
-- 2 stepper motor holders
-- 1 pen holder 
-- 1 servo motor holder 
-- 2 ball bearing holder
-- 1 cap 
+The necessary parts for this bot were 3D printed. Find the catalogue of parts [here](https://github.com/MRAC-IAAC/SHEDIO/tree/master/_3D%20Print%20Files).  
+
+**You will need:** 
+- x1 base 
+- x2 wheels
+- x2 stepper motor holders
+- x1 pen holder 
+- x1 servo motor holder 
+- x2 ball bearing holder
+- x1 cap 
 - M3 screws
 
 piBox:
