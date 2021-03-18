@@ -16,11 +16,14 @@ _noun_
 ### **The Drawing Bot**
 ![alt text](_Diagrams/02-DB-secondPrototype.gif)
 
-
-
 -------------------------------
 
 ## **GETTING STARTED**
+
+**_Note_**  
+For this DIY project, a separate setup of the piCamera (in a box) is in charge of taking the photo that is to be traced by the mini bot.  
+
+Let's do it!
 
 -------------------------------
 
@@ -30,11 +33,11 @@ _noun_
 
 **First Iteration Parts:**  
 (1) Arduino Uno  
-(2) 28byj-48 Stepper Motor  
+(2) 28byj-48 Stepper Motor (x2)  
 (3) Mini Servo Motor  
 (4) Pen Holder  
-(5) Servo Motor Holder (Controlling the pen’s movement)  
-(6) 3D Printed Wheels  
+(5) Servo Motor Holder (controlling the pen’s movement)  
+(6) 3D Printed Wheels (x2)  
 (7) 3D Printed Board  
 (8) Base Plate  
 (9) Ball Bearing Holder  
@@ -82,9 +85,11 @@ For this code, available in the _Scripts folder of the repository [here](https:/
 - [OpenCV](https://docs.opencv.org/master/df/d65/tutorial_table_of_content_introduction.html) library  
 - [Numpy](https://numpy.org/install/) library
 
+Understanding the basic of how to find and draw contours using the **OpenCV** library can be found [here](https://docs.opencv.org/master/d4/d73/tutorial_py_contours_begin.html). A simple code can be found [here](https://gitlab.com/fablabbcn-projects/learning/code-club/-/blob/2020/04_computer_vision/02_findcontours.py).
+
 A visual introduction to **Numpy** can be found [here](http://jalammar.github.io/visual-numpy/) for a better understanding of the library and how it works.
 
-A basic eplanation of how the logic of the code works can be found in this [blogpost](http://www.iaacblog.com/programs/drawing-bot-hardware-ii-seminar/) under "Python Script".
+A basic explanation of the logic of the code and how it works can be found in this [blogpost](http://www.iaacblog.com/programs/drawing-bot-hardware-ii-seminar/) under "Python Script".
 
 -------------------------------
 
@@ -102,8 +107,17 @@ The necessary parts for this bot were 3D printed. Find the catalogue of parts [h
 - x1 cap 
 - M3 screws
 
-piBox:
-check CNC file + rhino laser file
+The final model should look like this:
+![alt text](_Diagrams/01-DB-final.jpg)
+
+**piCamera Box:**  
+The piCamera Box can be fabricated through [CNC](https://github.com/MRAC-IAAC/SHEDIO/tree/master/_Fabrication%20Files/CNC) or [Lasercut](https://github.com/MRAC-IAAC/SHEDIO/tree/master/_Fabrication%20Files/Lasercut). We chose to CNC and eventuallty sand the parts to create the frost effect. 
+
+![alt text](_Diagrams/03-piCamera.gif)
+(1) Raspberry Pi 4B  
+(2) Touch Sensor  
+(3) PiCamera  
+(4) Board of LEDs  
 
 -------------------------------
 
