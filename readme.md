@@ -106,14 +106,22 @@ The necessary parts for this bot were 3D printed. Find the catalogue of parts [h
 - x1 pen holder 
 - x1 servo motor holder 
 - x2 ball bearing holder
+- x2 ball bearing extentions
 - x1 cap 
-- M3 screws
+
+**You will also need:** 
+- x6 screws [M3 x 10] for the base
+- x4 screws [M3 x 30] for the extensions
+- x10 M3 nuts
 
 The final model should look like this:
 ![alt text](_Diagrams/01-DB-final.jpg)
 
 **piCamera Box:**  
 The piCamera Box can be fabricated through [CNC](https://github.com/MRAC-IAAC/SHEDIO/tree/master/_Fabrication%20Files/CNC) or [Lasercut](https://github.com/MRAC-IAAC/SHEDIO/tree/master/_Fabrication%20Files/Lasercut). We chose to CNC and eventuallty sand the parts to create the frost effect. 
+
+**_Note_**  
+You might need to adjust the Lasercut dimensions should you choose a different material (we used 6 mm acrylic).
 
 ![alt text](_Diagrams/03-piCamera.gif)
 (1) Raspberry Pi 4B  
@@ -129,8 +137,6 @@ The piCamera Box can be fabricated through [CNC](https://github.com/MRAC-IAAC/SH
 
 **DRAWING BOT - HARDWARE II SEMINAR** is a project of **IAAC, Institute for Advanced Architecture of Catalonia**, developed in the **Master in Robotics and Advanced Construction** in 2020/2021 by:
 
-**Students:** Aslinur Taskin, Helena Homsi and Juan Eduardo Ojeda
-
-**Faculty:** Oscar Gonzalez
-
+**Students:** Aslinur Taskin, Helena Homsi and Juan Eduardo Ojeda  
+**Faculty:** Oscar Gonzalez  
 **Faculty Assistant:** Antoine Jaunard
