@@ -93,6 +93,9 @@ A visual introduction to **Numpy** can be found [here](http://jalammar.github.io
 
 A basic explanation of the logic of the code and how it works can be found in this [blogpost](http://www.iaacblog.com/programs/drawing-bot-hardware-ii-seminar/) under "Python Script".
 
+**_Note_**  
+The current Python script does not work properly yet, meaning that the robot does not draw the contours properly. We were not able to fully develop the code in the time frame we had so any notes or advice is welcome. We will continue to work on it and update this repo in our free time. 
+
 -------------------------------
 
 ## **04. FABRICATION**
@@ -140,3 +143,15 @@ You might need to adjust the Lasercut dimensions should you choose a different m
 **Students:** Aslinur Taskin, Helena Homsi and Juan Eduardo Ojeda  
 **Faculty:** Oscar Gonzalez  
 **Faculty Assistant:** Antoine Jaunard
+
+
+-------------------------------
+
+**Reach us at:**  
+
+_Aslinur Taskin:_ aslinur.taskin@students.iaac.net  
+_Helena Homsi:_ helena.homsi@students.iaac.net  
+_Juan Eduardo Ojeda:_ juan.eduardo.ojeda@students.iaac.net
+
+
+
