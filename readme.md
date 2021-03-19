@@ -60,11 +60,86 @@ All necessary arduino codes can be found [here](https://github.com/MRAC-IAAC/SHE
 -------------------------------
 
 ## **02. RASPBERRY PI**
-### **text text text**
+**Operating System:** Raspbian GNU/ Linux 10 (buster)
 
-small description 
+For beginners in Raspberry Pi, [this link](https://www.raspberrypi.org/software/) will be useful to download the imager in order to flash a microSD card with the Raspberry Pi OS. 
+The [documentation](https://www.raspberrypi.org/documentation/) tab in the official raspberry pi website is very useful to set up the pi. In the diagrams folder, there is an image of the pinout diagram for the Raspberry Pi 4. 
 
-links here: ------
+![alt text](_Diagrams/PI4_PINOUT.png)
+
+The scripts folder should contain a test script to run the pi camera with a touch sensor/ button and another test script for the LED's. 
+
+
+Some links we used on top of the general set up are as follows:
+
+- PI CAMERA SETUP: https://projects.raspberrypi.org/en/projects/getting-started-with-picamera/2
+- BUTTON EXAMPLE: https://raspberrypihq.com/use-a-push-button-with-raspberry-pi-gpio/
+
+### **BLUETOOTH SETUP**
+Seting up bluetooth to connect to the HC-06 on the arduino:
+This takes a couple of steps to get it to work properly. First, you will have to make sure your Pi is set up with bluetooth properly.
+
+Open a terminal and type
+```
+bluetoothctl
+agent on
+default-agent
+scan on
+```
+This will show you a list of available bluetooth networks nearby. You will have to locate the name of your bluetooth and copy the IP address. 
+
+Open a new terminal and do the following:
+```
+sudo nano /etc/bluetooth/rfcomm.conf
+```
+add the following and replace the device ip address with yours
+```
+rfcomm0{
+    bind yes;
+    device AA:BB:CC:DD:EE:FF
+    channel 1;
+    comment "connection to bluetooth serial module";
+}
+```
+This will create the necessary file in order for the Raspberry Pi to recognize and connect with the HC-06 Bluetooth Module. You will need to reboot your pi, and once restarted, type the following:
+
+```
+bluetoothctl
+agent on
+default-agent
+scan on
+```
+And in a new terminal:
+```
+sudo rfcomm connect hci0 AA:BB:CC:DD:EE:FF
+```
+Now you should be connected to your bluetooth device. In order to connect to your bluetooth module using python, you will have to download the **pyserial** package and your serial port should be defined as (in your python script):
+```
+ /dev/rfcomm0 
+ ```
+The name is rfcomm0 because that is the name we wrote in the **rfcomm.conf** file in order for the Raspberry Pi to recognize the bluetooth module. If you need to check, you can type the following into a terminal, which will give you a list of devices connected to your Raspberry Pi via serial port. 
+```
+lsusb
+```
+
+In order to take a picture and translate that into directions, run the **final_script.py** file and then to operate the drawing bot, run the **send_all_the_instructions_to_arduino.py** file (that is where you might have to change the serial port)
+
+**NOTE: The scripts are explained below, and there are notations in each file**
+
+### **OTHER USEFUL LINKS**
+
+Some other links regarding connecting to the Raspberry Pi remotely
+
+To set up a usb connection between the pi and your laptop:
+- https://www.hardill.me.uk/wordpress/2019/11/02/pi4-usb-c-gadget/
+
+To set up putty:
+- https://www.factoryforward.com/pi-zero-w-headless-setup-windows10-rndis-driver-issue-resolved/
+
+To set up VNC Viewer:
+- https://www.raspberrypi.org/documentation/remote-access/vnc/
+
+
 
 -------------------------------
 
