@@ -169,7 +169,7 @@ A visual introduction to **Numpy** can be found [here](http://jalammar.github.io
 A basic explanation of the logic of the code and how it works can be found in this [blogpost](http://www.iaacblog.com/programs/drawing-bot-hardware-ii-seminar/) under "Python Script".
 
 **_Note_**  
-The current Python script does not work properly yet, meaning that the robot does not draw the contours properly. We were not able to fully develop the code in the time frame we had so any notes or advice is welcome. We will continue to work on it and update this repo in our free time. 
+The current Python script does not work properly yet, meaning that the robot does not draw the contours properly. We were not able to fully develop the code in the time frame we had so any notes or advice are welcome. We will continue to work on it and update this repo during our free time. 
 
 -------------------------------
 
